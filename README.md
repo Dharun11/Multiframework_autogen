@@ -5,8 +5,14 @@
 A sophisticated search assistant leveraging multi-agent architecture, semantic chunking, and retrieval-augmented generation (RAG) to provide intelligent, context-aware search capabilities across Wikipedia and a custom vector store.
 
 ## Responses
+
+### APP Interface
 ![App Interface](/assets/interface.png)
+
+### Rag Search results
 ![Vector Store Setup](/assets/rag_response.png)
+
+### Wikipedia search results
 ![Search Results](/assets/wiki_response.png)
 
 ## Features
