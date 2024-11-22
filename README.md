@@ -4,6 +4,11 @@
 ## Overview
 A sophisticated search assistant leveraging multi-agent architecture, semantic chunking, and retrieval-augmented generation (RAG) to provide intelligent, context-aware search capabilities across Wikipedia and a custom vector store.
 
+## Responses
+![App Interface](/assets/interface.png)
+![Vector Store Setup](/assets/rag_response.png)
+![Search Results](/assets/wiki_response.png)
+
 ## Features
 - Multi-agent routing system
 - Semantic text chunking
