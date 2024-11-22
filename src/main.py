@@ -13,18 +13,18 @@ from typing import Annotated, List
 import torch
 from transformers import AutoTokenizer, AutoModel
 from groq import Groq
-# Machine Learning imports
+
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import KMeans
 
 # Load environment variables
 load_dotenv()
 
-# Azure OpenAI Configuration
+
 api_key = os.getenv('GROQ_API_KEY')
 
 
-# Configuration dictionary for Azure OpenAI
+
 config_list = {
     "model": "llama-3.1-70b-versatile",
 
@@ -111,17 +111,7 @@ def semantic_chunking(text: str, num_chunks: int) -> List[str]:
     return [' '.join(chunk) for chunk in chunks]
 
 def split_large_chunks(chunks: List[str], max_length: int, split_factor: int) -> List[str]:
-    """
-    Recursively split large chunks into smaller semantic chunks
     
-    Args:
-        chunks (List[str]): List of text chunks
-        max_length (int): Maximum allowed length for a chunk
-        split_factor (int): Number of sub-chunks to create when splitting
-    
-    Returns:
-        List[str]: List of split chunks
-    """
     result_chunks = []
 
     for chunk in chunks:
@@ -137,15 +127,7 @@ def split_large_chunks(chunks: List[str], max_length: int, split_factor: int) ->
     return result_chunks
 
 def generate_embeddings(chunks: List[str]) -> List[List[float]]:
-    """
-    Generate embeddings for text chunks using Hugging Face model
     
-    Args:
-        chunks (List[str]): List of text chunks
-    
-    Returns:
-        List[List[float]]: List of embeddings
-    """
     embedder = HuggingFaceEmbedding()
     embeddings = []
     
@@ -266,7 +248,7 @@ def final_output(query: str, route_query, user_proxy, wiki_agent, rag_agent):
         return vector_res.summary,res_method.summary
 
 def setup_vectorstore():
-    """Set up the initial vector store with semantic chunking"""
+    
     try:
         # URLs to fetch content from
         urls = [
@@ -306,10 +288,10 @@ def setup_vectorstore():
             
             # Add chunks and embeddings to the collection
             new_collection.add(
-                documents=sorted_chunks,  # List of textual chunks
-                embeddings=embeddings,    # Corresponding list of embedding vectors
-                ids=[f"chunk_{i}" for i in range(len(sorted_chunks))],  # Unique IDs for each chunk
-                metadatas=[{"chunk_index": i} for i in range(len(sorted_chunks))]  # Optional metadata
+                documents=sorted_chunks,  
+                embeddings=embeddings,    
+                ids=[f"chunk_{i}" for i in range(len(sorted_chunks))],  
+                metadatas=[{"chunk_index": i} for i in range(len(sorted_chunks))]  
             )
             
             st.success(f"Vector store created successfully with {len(sorted_chunks)} semantic chunks.")
