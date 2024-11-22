@@ -34,26 +34,13 @@ config_list = {
 
 class HuggingFaceEmbedding:
     def __init__(self, model_name='sentence-transformers/all-MiniLM-L6-v2'):
-        """
-        Initialize Hugging Face embedding model
         
-        Args:
-            model_name (str): Hugging Face model identifier
-        """
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
         self.model = AutoModel.from_pretrained(model_name).to(self.device)
     
     def generate_embedding(self, texts):
-        """
-        Generate embeddings for input texts
         
-        Args:
-            texts (list): List of text chunks
-        
-        Returns:
-            list: List of embeddings
-        """
         if isinstance(texts, str):
             texts = [texts]
         
@@ -81,16 +68,7 @@ class HuggingFaceEmbedding:
         return embeddings.cpu().numpy().tolist()
 
 def semantic_chunking(text: str, num_chunks: int) -> List[str]:
-    """
-    Perform semantic chunking using TF-IDF and KMeans clustering
     
-    Args:
-        text (str): Input text to be chunked
-        num_chunks (int): Number of semantic chunks to create
-    
-    Returns:
-        List[str]: List of semantic chunks
-    """
     # Split text into sentences using a regex for punctuation
     sentences = re.split(r'(?<=[.!?])\s+', text.strip())
     
@@ -300,7 +278,7 @@ def setup_vectorstore():
         st.error(f"Error setting up vector store: {e}")
 
 def main():
-    st.title("Multi-Agent RAG Search Assistant")
+    st.title("Multi-Agent RAG and Wikipedia Search Assistant")
     
     # Sidebar for setup and configuration
     st.sidebar.header("Configuration")
